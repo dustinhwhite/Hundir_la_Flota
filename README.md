@@ -1,3 +1,5 @@
+# Descripción del juego e instrucciones
+
 # Hundir la Flota
 Proyecto grupal de Data Science The Bridge
 
