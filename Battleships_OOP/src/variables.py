@@ -1,5 +1,6 @@
 # Este archivo contiene todos los constantes que se usan a lo largo del juego:
 # Tamaño del tablero, los tipos y tamaños de los barcos
+# Emoji para agua? 
 
 SIZE = 10
 BOAT1 = 4
