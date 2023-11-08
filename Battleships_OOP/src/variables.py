@@ -1,5 +1,5 @@
-# Este archivo contendría todos los valores constantes que se usan a lo largo del juego, 
-# como el tamaño del tablero, los tipos y tamaños de los barcos y cualquier otra constante.
+# Este archivo contiene todos los constantes que se usan a lo largo del juego, 
+# tamaño del tablero, los tipos y tamaños de los barcos
 
 SIZE = 10
 BOAT1 = 4
