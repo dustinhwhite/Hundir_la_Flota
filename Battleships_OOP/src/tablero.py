@@ -13,7 +13,7 @@ class Board:
         self.size = size
         self.boat_symbol = boat_symbol
         self.boat_sizes = boat_sizes
-        self.board = np.full((size, size), "0", dtype='<U1')
+        self.board = np.full((size, size), "O", dtype='<U4')
         self.boats_placed = {key: 0 for key in boat_sizes} # Contador de boats in boat sizes, cada valor empieza con cero
 
     #  def is_horizontal():
@@ -22,7 +22,7 @@ class Board:
     def is_space_free (self, row, col, boat_size):
         if col + boat_size > self.size:
             return False
-        return np.all(self.board[row, col: col + boat_size] == "0") # Check if the horizontal space is free
+        return np.all(self.board[row, col: col + boat_size] == "O") # Check if the horizontal space is free
 
     def place_boat(self, row, col, boat_size): 
         for i in range(boat_size):
