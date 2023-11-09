@@ -34,7 +34,7 @@ class Board:
 
             while self.boats_placed[boat_size] < required_boats_count:  # Keep placing boats until we have placed the required #
                 row = np.random.randint(0, self.size)   # Generate a random starting position for the boat
-                col = np.random.randint(0, self.size)
+                col = np.random.randint(0, self.size - boat_size + 1)
             
                 if self.is_space_free (row, col, boat_size): # Check if the boat can be placed at the starting position
                     self.place_boat(row, col, boat_size) # If it can, place the boat on the board
