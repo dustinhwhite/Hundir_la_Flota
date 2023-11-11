@@ -104,3 +104,12 @@ print("El objetivo del juego es hundir todos los barcos de tu oponente antes de 
 print("Para jugar, introduce las coordenadas de la casilla donde quieres lanzar un misil.\n\n"
     " - Si aciertas en una casilla donde hay un barco, lo dañarás y se marcará en tu tablero. \n"
     " - Si fallas, se marcará en tu tablero y será el turno de tu oponente.\n")
+
+
+
+ 
+Jugador=pd.DataFrame(board_own)
+Maquina=pd.DataFrame(board_blank) 
+espacio=pd.DataFrame(np.full((10,1),"|"))
+resultado=pd.concat([Jugador,espacio,Maquina],axis=1)   # Va a imprimir los dos tableros lado a lado con un seperador  
+print(resultado)       
