@@ -42,11 +42,11 @@ class Board:
             required_boats_count = self.boat_sizes[boat_size]   # Get the number of boats of this size we need to place
 
             while self.boats_placed[boat_size] < required_boats_count:  # Keep placing boats until we have placed the required #
-                is_horizontal = random.choice([True, False])
+                is_horizontal = random.choice([True, False])    # Generates is_horizontal variable random choice
                 row = np.random.randint(0, self.size)   # Generate a random starting position for the boat
                 col = np.random.randint(0, self.size)
 
-                if is_horizontal:
+                if is_horizontal:   
                     col = np.random.randint(0, self.size - boat_size + 1)
                 else:
                     row = np.random.randint(0, self.size - boat_size + 1)
@@ -91,3 +91,16 @@ class Board:
 #         
 
     # Mas metodos de gameplay aquí
+
+
+# Game initalized:Ask the user for their name
+user_name = input("Please enter your name: ")
+
+# Greet the user
+print(f"Welcome to the game, {user_name}!")
+
+print("El objetivo del juego es hundir todos los barcos de tu oponente antes de que la maquina hunda los tuyos.\n")
+
+print("Para jugar, introduce las coordenadas de la casilla donde quieres lanzar un misil.\n\n"
+    " - Si aciertas en una casilla donde hay un barco, lo dañarás y se marcará en tu tablero. \n"
+    " - Si fallas, se marcará en tu tablero y será el turno de tu oponente.\n")
