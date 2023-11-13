@@ -13,7 +13,7 @@ class Board:
         self.size = size
         self.boat_symbol = boat_symbol
         self.boat_sizes = boat_sizes
-        self.board = np.full((size, size), "O" , dtype='<U4')
+        self.board = np.full((size, size), "~" , dtype='<U4')
         self.boats_placed = {key: 0 for key in boat_sizes} # Contador de boats in boat sizes, cada valor empieza con cero
 
     
@@ -21,11 +21,11 @@ class Board:
         if is_horizontal: 
             if col + boat_size > self.size:
                 return False
-            return np.all(self.board[row, col: col + boat_size] == "O") # Check if the horizontal space is free
+            return np.all(self.board[row, col: col + boat_size] == "~") # Check if the horizontal space is free
         else:
             if row + boat_size > self.size:
                 return False
-            return np.all(self.board[row: row + boat_size, col] == "O") # Check if the vertical space is free
+            return np.all(self.board[row: row + boat_size, col] == "~") # Check if the vertical space is free
 
 
     def place_boat(self, row, col, boat_size, is_horizontal): 
@@ -62,54 +62,4 @@ class Board:
     
     
 
-# Ejemplos del uso:
-# board_game = Board()
-# board_game.place_all_boats()
-# board_game.display_board()
 
-
-# ENEMY BOARD and TRACKING BOARD, 4 EN TOTAL 
-
-
-
-# class Game:
-#     def __init__(self):
-#         # Crear tableros para jugador:
-#         self.player_board = Board()
-#         self.player_tracking_board = Board()
-
-#         # Crear tableros para maquina:
-#         self.computer_board = Board()
-#         self.computer_tracking_board = Board()
-
-#         # Llenar tablero con barcos:
-#         self.player_board.place_all_boats()
-#         self.computer_board.place_all_boats()
-
-#     def play(self):
-#         # Gameplay va aquí como SHOOT/DISPARO y TERMINAR cuando acabe 20 disparos aciertos 
-#         
-
-    # Mas metodos de gameplay aquí
-
-
-# Game initalized:Ask the user for their name
-user_name = input("Please enter your name: ")
-
-# Greet the user
-print(f"Welcome to the game, {user_name}!")
-
-print("El objetivo del juego es hundir todos los barcos de tu oponente antes de que la maquina hunda los tuyos.\n")
-
-print("Para jugar, introduce las coordenadas de la casilla donde quieres lanzar un misil.\n\n"
-    " - Si aciertas en una casilla donde hay un barco, lo dañarás y se marcará en tu tablero. \n"
-    " - Si fallas, se marcará en tu tablero y será el turno de tu oponente.\n")
-
-
-
- 
-Jugador=pd.DataFrame(board_own)
-Maquina=pd.DataFrame(board_blank) 
-espacio=pd.DataFrame(np.full((10,1),"|"))
-resultado=pd.concat([Jugador,espacio,Maquina],axis=1)   # Va a imprimir los dos tableros lado a lado con un seperador  
-print(resultado)       
