@@ -58,8 +58,6 @@ class Board:
 
     def display_board(self):
         print(self.board)
-
-    
-    
+    #test
 
 
