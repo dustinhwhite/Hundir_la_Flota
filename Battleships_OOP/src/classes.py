@@ -56,8 +56,8 @@ class Board:
                     self.boats_placed[boat_size] += 1   # Increase the count of boats placed for this size
 
 
-    def display_board(self):
-        print(self.board)
+#    def display_board(self):
+#        print(self.board)
     #test123
 
 
