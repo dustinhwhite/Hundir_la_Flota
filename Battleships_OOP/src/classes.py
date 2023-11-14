@@ -43,36 +43,3 @@ class Board:
 
     def display_board(self):
         print(self.board)
-
-    
-    
-
-# Ejemplos del uso:
-# board_game = Board()
-# board_game.place_all_boats()
-# board_game.display_board()
-
-
-# ENEMY BOARD and TRACKING BOARD, 4 EN TOTAL 
-
-
-
-# class Game:
-#     def __init__(self):
-#         # Crear tableros para jugador:
-#         self.player_board = Board()
-#         self.player_tracking_board = Board()
-
-#         # Crear tableros para maquina:
-#         self.computer_board = Board()
-#         self.computer_tracking_board = Board()
-
-#         # Llenar tablero con barcos:
-#         self.player_board.place_all_boats()
-#         self.computer_board.place_all_boats()
-
-#     def play(self):
-#         # Gameplay va aquí como SHOOT/DISPARO y TERMINAR cuando acabe 20 disparos aciertos 
-#         
-
-    # Mas metodos de gameplay aquí
