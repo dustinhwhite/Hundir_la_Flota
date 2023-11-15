@@ -1,20 +1,16 @@
-# Aquí es donde definirías tu clase Tablero. 
-# Esta clase manejará la lógica del tablero del juego, inicializándolo, colocando barcos, manejando disparos, etc.
-
 import random 
 import numpy as np
 import variables
+import funciones
 
-
-BOAT_SIZES = {1: 4, 2: 3, 3: 2, 4: 1}  # Clave = Tamaño del barco, Valor = Cantidad de barcos
 
 class Board:
-    def __init__(self, size=variables.SIZE, boat_symbol=variables.BOAT, boat_sizes=BOAT_SIZES):
+    def __init__(self, size=variables.SIZE, boat_symbol=variables.BOAT, boat_sizes=variables.BOAT_SIZES):
         self.size = size
         self.boat_symbol = boat_symbol
         self.boat_sizes = boat_sizes
-        self.board = np.full((size, size), "~" , dtype='<U4')
-        self.boats_placed = {key: 0 for key in boat_sizes} # Contador de boats in boat sizes, cada valor empieza con cero
+        self.board = funciones.initial_board()
+        self.boats_placed = {key: 0 for key in boat_sizes} # Count boats in boat sizes, each value starts in 0 
 
     
     def is_space_free (self, row, col, boat_size, is_horizontal):
@@ -56,8 +52,6 @@ class Board:
                     self.boats_placed[boat_size] += 1   # Increase the count of boats placed for this size
 
 
-#    def display_board(self):
-#        print(self.board)
     #test123
 
 

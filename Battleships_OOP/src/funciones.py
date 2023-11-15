@@ -5,9 +5,9 @@ import variables
 
 def initial_board():
     '''
-    Función que inicializa un tablero "agua" de unas determinadas dimensiones 
-        Input:
-        Output:
+    Function that initializes a "water" board without boats.
+    
+    Returns: Numpy array 
     '''
     init_board = np.full((variables.SIZE,variables.SIZE), "~")
     return init_board
@@ -16,9 +16,13 @@ def initial_board():
 def display_boards(player_board, player_tracking_board):
 
     '''
-    Función que imprime por pantalla de una forma visual el tablero de barcos del jugador y su tablero de disparos.
-        Input:
-        Output:
+    Function that visually prints the player's ship board and their shooting board on the screen.
+
+    Args: 
+        player_board (Board Class Object) : The player's board with his boats.
+        player_tracking_board (Numpy array) : The player's shooting board 
+
+    Returns : None
     '''
 
     column_names = {'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5, 'F': 6, 'G': 7, 'H': 8, 'I': 9, 'J': 10}
