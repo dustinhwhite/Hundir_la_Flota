@@ -50,7 +50,7 @@ class Board:
             required_boats_count = self.boat_sizes[boat_size]   # Get the number of boats of this size we need to place
 
             while self.boats_placed[boat_size] < required_boats_count:  # Keep placing boats until we have placed the required #
-                orientation = random.choice(['N', 'S', 'E', 'O'])    # Generates orientation variable random choice
+                orientation = random.choice(['N', 'S', 'E', 'W'])    # Generates orientation variable random choice
                 row = np.random.randint(0, self.size)   # Generate a random starting position for the boat
                 col = np.random.randint(0, self.size)
 
