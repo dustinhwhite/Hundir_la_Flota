@@ -3,6 +3,7 @@ import random
 import numpy as np
 from tabulate import tabulate
 
+
 row_column_names = {'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5, 'F': 6, 'G': 7, 'H': 8, 'I': 9, 'J': 10}
 SIZE = 10
 BOAT1 = 4
@@ -75,7 +76,7 @@ class Board:
 
         Returns : None
         '''
-        print(tabulate(self.board.tolist(),headers=variables.row_column_names.keys(), showindex=variables.row_column_names.keys(),tablefmt="rounded_grid",stralign='center'))
+        print(tabulate(self.board.tolist(),headers=row_column_names.keys(), showindex=row_column_names.keys(),tablefmt="rounded_grid",stralign='center'),end='')
 
 # FUNCIONES
 def initial_board():
@@ -88,17 +89,19 @@ def initial_board():
     init_board = np.full((SIZE,SIZE), "💧")
     return init_board
 
-def get_guess(): # no self 
+
+# AÑADIR EXCEPCIONES DE LOS INPUT !!
+def get_guess(): 
 
     """Prompts the user for a row and column to attack. The
     return value is a board position in (row, column) format.
     """
-    c = input("Enter a col (A-J): ").upper()
+    c = input("Introduzca una columna(A-J):  o escribe 'salir' para salir del juego): ").upper()
     col = row_column_names[c] 
-    row = int(input("Enter a row (0-9): "))
-
-    # AÑADIR EXCEPCIONES DE LOS INPUT !!
-
+    row = int(input("Enter a row (1-10): "))
+    if get_guess.upperr() == "SALIR":
+        print("Thank you for playing!. ¡Hasta la próxima!")
+        break
     return (row-1, col-1) #Col, row intercambiado
 
 
@@ -141,4 +144,3 @@ while True:
 
     print(tabla1)
     print(tabla2)
-

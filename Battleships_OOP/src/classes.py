@@ -1,7 +1,7 @@
 import random 
 import numpy as np
-import variables
-import funciones
+import src.variables as variables
+import src.funciones as funciones
 
 
 class Board:
@@ -73,7 +73,3 @@ class Board:
         Returns : None
         '''
         print(tabulate(self.board.tolist(),headers=variables.row_column_names.keys(), showindex=variables.row_column_names.keys(),tablefmt="rounded_grid",stralign='center'))
-
-
-
-
