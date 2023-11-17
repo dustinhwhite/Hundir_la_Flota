@@ -63,7 +63,17 @@ class Board:
                     self.place_boat(row, col, boat_size, orientation) # If it can, place the boat on the board
                     self.boats_placed[boat_size] += 1   # Increase the count of boats placed for this size
 
+    def display_board(self):
+        '''
+        Function that visually prints the player's ship board and their shooting board on the screen.
 
-    #test123
+        Args: 
+            self (Board Class Object) : The board to print in console
+
+        Returns : None
+        '''
+        print(tabulate(self.board.tolist(),headers=variables.row_column_names.keys(), showindex=variables.row_column_names.keys(),tablefmt="rounded_grid",stralign='center'))
+
+
 
 
