@@ -1,5 +1,4 @@
 # Funciones no incluidas en las Clases
-
 import numpy as np
 from src.variables import *
 
@@ -19,11 +18,12 @@ def get_guess():
     return value is a board position in (row, column) format.
     """
     c = input("Introduzca una columna(A-J):  o escribe 'salir' para salir del juego): ").upper()
-    col = row_column_names[c] 
+    col = row_column_names[c] # Letters to numbers
     row = int(input("Enter a row (1-10): "))
+    
     if get_guess.upperr() == "SALIR":
         print("Thank you for playing!. ¡Hasta la próxima!")
-    return (row-1, col-1) #Col, row intercambiado
+    return (row-1, col-1) 
 
 
 def check_guess(player_tracking_board, computer_board, position): #input dos tableros
@@ -34,16 +34,19 @@ def check_guess(player_tracking_board, computer_board, position): #input dos tab
     return: guess_status: True when guess results in hit, False when guess results 
     """
     row, col = position
-    if (player_tracking_board[row][col] == HIT_CHAR) or (player_tracking_board[row][col] == BLANK_CHAR):
+    if (player_tracking_board[row][col] == variables.BOAT_DAMAGED) or (player_tracking_board[row][col] == variables.MISS):
         print("Ya has disparado a esas coordenadas, vuelve a intentarlo")
         return False
     else:
-        if computer_board[row][col] == MISS_CHAR:
+        if computer_board[row][col] == variables.WATER:
             print("Missed!")
-            player_tracking_board[row][col] = BLANK_CHAR
+            player_tracking_board[row][col] = variables.MISS
             return False
         else:
             print("Hit!")
-            player_tracking_board[row][col] = HIT_CHAR
-            #computer_board[row][col] = HIT_CHAR
+            player_tracking_board[row][col] = variables.BOAT_DAMAGED
             return True
+
+def end_game(board):
+    cont = np.count_nonzero(board == variables.BOAT_DAMAGED)
+    return cont

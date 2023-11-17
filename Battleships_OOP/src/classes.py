@@ -1,5 +1,6 @@
 import random 
 import numpy as np
+import tabulate
 import src.variables as variables
 import src.funciones as funciones
 
