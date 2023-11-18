@@ -40,13 +40,18 @@ def get_guess():
     return (row_input-1, column-1) 
 
 
-def check_guess(player_tracking_board, computer_board, position): #input dos tableros
-    """Checks whether or not position is occupied by a ship. A hit is
-    registered when position occupied by a ship and position not hit
-    previously. A miss occurs otherwise.
-    param position: a (row,column) tuple guessed by user
-    return: guess_status: True when guess results in hit, False when guess results 
-    """
+def player_shot(player_tracking_board, computer_board, position): 
+
+    '''
+    Checks whether or not position is occupied by a ship in the computer board. 
+    A hit is registered when position occupied by a ship and position not hit previously. 
+    A miss occurs otherwise.
+    Args:
+        player_tracking_board (Board Class Object): to check the previus shots
+        computer_board (Board Class Object): 
+        position (tuple) : A tuple with the user coordinates
+    Returns: 
+    '''
     row, col = position
     if (player_tracking_board[row][col] == variables.BOAT_DAMAGED) or (player_tracking_board[row][col] == variables.MISS):
         print("Ya has disparado a esas coordenadas, vuelve a intentarlo")
@@ -61,6 +66,21 @@ def check_guess(player_tracking_board, computer_board, position): #input dos tab
             player_tracking_board[row][col] = variables.BOAT_DAMAGED
             return True
 
+#def computer_shot(player_board, computer_shots):
+
+
 def end_game(board):
+    '''
+    Function that checks how many damaged ships there are in a board.
+    If damaged boats are the same as the total, the game is over and someone wins
+    Args: 
+        board (Board Class Object) : The board where the damaged boats are counted
+
+    Returns: False if game is over | True if it isn't over.
+    '''
     cont = np.count_nonzero(board == variables.BOAT_DAMAGED)
-    return cont
+
+    if cont == 20:
+        return False
+    else:
+        return True
