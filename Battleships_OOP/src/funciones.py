@@ -11,19 +11,33 @@ def initial_board():
     init_board = np.full((variables.SIZE,variables.SIZE), variables.WATER)
     return init_board
 
-# AÑADIR EXCEPCIONES DE LOS INPUT !!
+
 def get_guess(): 
 
     """Prompts the user for a row and column to attack. The
     return value is a board position in (row, column) format.
     """
-    c = input("Introduzca una columna(A-J):  o escribe 'salir' para salir del juego): ").upper()
-    col = row_column_names[c] # Letters to numbers
-    row = int(input("Enter a row (1-10): "))
-    
-    if get_guess.upperr() == "SALIR":
-        print("Thank you for playing!. ¡Hasta la próxima!")
-    return (row-1, col-1) 
+    while True:
+        #print("Introduzca 'salir' si quiere salir y terminar el juego.")
+        column_input = input("Introduzca una columna (A-J):").upper().strip()
+        
+        if column_input  in row_column_names.keys():
+            column = row_column_names[column_input] 
+            break
+        else:
+            print(f"{column_input} no es una columna válida. Introduzca una letra de la A a la J:")
+
+    while True:
+        row_input = input("Introduzca una fila (1-10): ")
+        row_names = list(map(str, list(range(1, 11))))
+        
+        if row_input in row_names:
+            row_input = int(row_input)
+            break
+        else:
+            print(f"{row_input} no es una fila válida. Introduzca un número entero entre 1 y 10:")
+
+    return (row_input-1, column-1) 
 
 
 def check_guess(player_tracking_board, computer_board, position): #input dos tableros
