@@ -1,6 +1,7 @@
 # Funciones no incluidas en las Clases
 import numpy as np
 from src.variables import *
+import time
 
 def initial_board():
     '''
@@ -41,7 +42,6 @@ def get_guess():
 
 
 def player_shot(player_tracking_board, computer_board, position): 
-
     '''
     Checks whether or not position is occupied by a ship in the computer board. 
     A hit is registered when position occupied by a ship and position not hit previously. 
@@ -66,7 +66,38 @@ def player_shot(player_tracking_board, computer_board, position):
             player_tracking_board[row][col] = variables.BOAT_DAMAGED
             return True
 
-#def computer_shot(player_board, computer_shots):
+computer_shots = set()
+def computer_shot(player_board, computer_shots):
+    '''
+    Checks whether or not position is occupied by a ship in the player board. 
+    A hit is registered when position occupied by a ship and position not hit previously. 
+    A miss occurs otherwise.
+    Args:
+        player_board (Board Class Object): to check the previus shots
+        computer_shots (set) : A set with the computer shots 
+    Returns: 
+    '''
+    print("Turno del contricante")
+    
+    while True:
+        time.sleep(2)
+        row = np.random.randint(0, 10)
+        col = np.random.randint(0, 10)
+        
+        if (row,col) in computer_shots:
+            return True
+        else:
+            computer_shots.add((row,col))
+
+            if player_board[row][col] == variables.WATER:
+                print(row,col, end =' ->')
+                print("El contrincate ha fallado, es tu turno!")
+                return False
+            else:
+                print(row,col, end =' ->')
+                print("El contrincate ha tocado uno de tus barcos. Le vuelve a tocar")
+                player_board[row][col] = variables.BOAT_DAMAGED
+                return False
 
 
 def end_game(board):
@@ -80,7 +111,7 @@ def end_game(board):
     '''
     cont = np.count_nonzero(board == variables.BOAT_DAMAGED)
 
-    if cont == 20:
+    if cont == 20: # Each player has 20 lives (boat positions)
         return False
     else:
         return True
