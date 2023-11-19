@@ -1,6 +1,6 @@
 # Funciones no incluidas en las Clases
 import numpy as np
-from src.variables import *
+import src.variables as variables
 import time
 
 def initial_board():
@@ -13,7 +13,7 @@ def initial_board():
     return init_board
 
 
-def get_guess(): 
+def get_guess(player_tracking_board): 
 
     """Prompts the user for a row and column to attack. The
     return value is a board position in (row, column) format.
@@ -21,24 +21,29 @@ def get_guess():
     while True:
         #print("Introduzca 'salir' si quiere salir y terminar el juego.")
         column_input = input("Introduzca una columna (A-J):").upper().strip()
-        
-        if column_input  in row_column_names.keys():
-            column = row_column_names[column_input] 
-            break
+        if column_input == "W":
+            return (99,99)
         else:
-            print(f"{column_input} no es una columna válida. Introduzca una letra de la A a la J:")
+            if column_input  in variables.row_column_names.keys():
+                column = variables.row_column_names[column_input] 
+            else:
+                print(f"{column_input} no es una columna válida. Introduzca una letra de la A a la J:")
+                continue
 
-    while True:
-        row_input = input("Introduzca una fila (1-10): ")
-        row_names = list(map(str, list(range(1, 11))))
-        
-        if row_input in row_names:
-            row_input = int(row_input)
-            break
-        else:
-            print(f"{row_input} no es una fila válida. Introduzca un número entero entre 1 y 10:")
+            row_input = input("Introduzca una fila (1-10): ")
+            row_names = list(map(str, list(range(1, 11))))
 
-    return (row_input-1, column-1) 
+   # while True:
+            if row_input in row_names:
+                row_input = int(row_input)
+            else:
+                print(f"{row_input} no es una fila válida. Introduzca un número entero entre 1 y 10:")
+                continue
+
+            if player_tracking_board[row_input-1, column-1] in [variables.MISS, variables.BOAT_DAMAGED]:
+                print("Ya has disparado a esas coordenadas, vuelve a intentarlo")
+            else:
+                return (row_input-1, column-1)
 
 
 def player_shot(player_tracking_board, computer_board, position): 
@@ -77,10 +82,9 @@ def computer_shot(player_board, computer_shots):
         computer_shots (set) : A set with the computer shots 
     Returns: 
     '''
-    print("Turno del contricante")
     
     while True:
-        time.sleep(2)
+        time.sleep(1)
         row = np.random.randint(0, 10)
         col = np.random.randint(0, 10)
         
@@ -90,15 +94,14 @@ def computer_shot(player_board, computer_shots):
             computer_shots.add((row,col))
 
             if player_board[row][col] == variables.WATER:
-                print(row,col, end =' ->')
-                print("El contrincate ha fallado, es tu turno!")
+                print(list(variables.row_column_names.keys())[(list(variables.row_column_names.values()).index(col+1))], row+1, end =' -> ')
+                print("La máquina ha fallado, es tu turno!")
                 return False
             else:
-                print(row,col, end =' ->')
-                print("El contrincate ha tocado uno de tus barcos. Le vuelve a tocar")
+                print(list(variables.row_column_names.keys())[(list(variables.row_column_names.values()).index(col+1))], row+1, end =' -> ')
+                print("La máquina ha tocado uno de tus barcos. Le vuelve a tocar")
                 player_board[row][col] = variables.BOAT_DAMAGED
-                return False
-
+                return True
 
 def end_game(board):
     '''
@@ -115,3 +118,4 @@ def end_game(board):
         return False
     else:
         return True
+
