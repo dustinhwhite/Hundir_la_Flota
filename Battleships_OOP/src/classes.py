@@ -80,3 +80,55 @@ class Board:
         Returns : None
         '''
         print(tabulate(self.board.tolist(),headers=variables.row_column_names.keys(), showindex=variables.row_column_names.keys(),tablefmt="rounded_grid",stralign='center'))
+
+
+class Game:
+
+    def __init__(self):
+        pass
+
+
+    def play(self):
+        # Crear tableros para jugador:
+        player_board = Board()
+        player_tracking_board = funciones.initial_board()
+
+        # Crear tablero para maquina:
+        computer_board = Board()
+
+        # Llenar tablero con barcos:
+        player_board.place_all_boats()
+        computer_board.place_all_boats()
+
+        in_progress = True
+        players_turn = True
+        computer_shots = set()
+
+        while in_progress:
+                
+            if players_turn:
+                player_board.display_board()
+                print(tabulate(player_tracking_board.tolist(),headers=variables.row_column_names.keys(), showindex=variables.row_column_names.values(),tablefmt="rounded_grid",stralign='center'))
+                print("----- ES TU TURNO -----")
+                coordinates = funciones.get_guess(player_tracking_board)
+                acierto = funciones.player_shot(player_tracking_board, computer_board.board, coordinates)
+
+                if acierto:
+                    if not funciones.end_game(computer_board.board):
+                        print("¡Enhorabuena, has ganado!")
+                        break
+                    print("Has acertado ! Tienes otro turno")
+                    continue 
+                else:
+                    print("----- TURNO DE LA MÁQUINA -----")
+                    players_turn = False
+
+            else:
+                acierto = funciones.computer_shot(player_board.board, computer_shots)
+                if acierto:
+                    if not funciones.end_game(player_board.board):
+                        print("Ha ganado la máquina :( Hasta la próxima !")
+                        break
+                    continue
+                else:
+                    players_turn = True
