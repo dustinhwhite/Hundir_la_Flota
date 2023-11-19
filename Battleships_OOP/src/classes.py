@@ -6,14 +6,20 @@ import src.funciones as funciones
 
 
 class Board:
-    def __init__(self, size=variables.SIZE, boat_symbol=variables.BOAT, boat_sizes=variables.BOAT_SIZES):
+    def __init__(self, player_id = "Computer", size=variables.SIZE, boat_symbol=variables.BOAT, boat_sizes=variables.BOAT_SIZES):
+        self.player_id = player_id
         self.size = size
         self.boat_symbol = boat_symbol
         self.boat_sizes = boat_sizes
         self.board = funciones.initial_board()
         self.boats_placed = {key: 0 for key in boat_sizes} # Count boats in boat sizes, each value starts in 0 
 
-    
+        if self.player_id != "Computer":
+            self.display_welcome_message()  
+
+    def display_welcome_message(self):
+        print (f"Welcome {self.player_id}! Let's play Battleship! May the odds be ever in your favour")
+
     def is_space_free (self, row, col, boat_size, orientation):
         if orientation == 'E':  # East
             if col + boat_size > self.size: # Check if end position of the boat is off the board

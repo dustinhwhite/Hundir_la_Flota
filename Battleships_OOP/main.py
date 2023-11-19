@@ -5,6 +5,9 @@ from src.funciones import *
 from src.variables import *
 
 def main():
+    player_id = input("Enter your name: ")
+
+    player_board = Board(player_id )
     # Create a new game instance
     battleship_game = Game()
     
