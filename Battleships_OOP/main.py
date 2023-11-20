@@ -1,14 +1,26 @@
 # Punto de entrada de la aplicación para ejecutar el juego
 
-from src.game import Game
+from src.classes import *
+from src.funciones import *
+from src.variables import *
 
 def main():
-    # Create a new game instance
-    battleship_game = Game()
-    
-    # Start the game
-    battleship_game.play()
 
-# This conditional checks if your script is being run directly (as opposed to being imported)
+    player_id = input("Para comenzar, introduce tu nombre: ")
+    bienvenida(player_id)
+
+    if player_id == "demo":
+        time.sleep(5)
+        battleship_demo = Game()
+        battleship_demo.play_demo(player_id)
+
+    else:
+        time.sleep(5)
+        battleship_game = Game()
+        battleship_game.play(player_id)
+    
+
 if __name__ == "__main__":
     main()
+
+
