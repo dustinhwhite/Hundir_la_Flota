@@ -6,11 +6,13 @@ import src.funciones as funciones
 from rich import print as rprint
 
 class Board:
-    def __init__(self, player_id = "Computer", size=variables.SIZE, boat_symbol=variables.BOAT, boat_sizes=variables.BOAT_SIZES):
+    def __init__(self, player_id = "Computer", size=variables.SIZE, boat_symbol=variables.BOAT, boat_sizes=variables.BOAT_SIZES,boats={4: "🚢", 3: "⛴️", 2: "🚤", 1: "⛵"}):
         self.player_id = player_id
         self.size = size
         self.boat_symbol = boat_symbol
+        self.boats=boats
         self.boat_sizes = boat_sizes
+        #self.boats = boats
         self.board = funciones.initial_board()
         self.boats_placed = {key: 0 for key in boat_sizes} # Count boats in boat sizes, each value starts in 0 
 
@@ -42,16 +44,16 @@ class Board:
     def place_boat(self, row, col, boat_size, orientation): 
         if orientation == 'E':  # East
             for i in range(boat_size):
-                self.board[row, col + i] = self.boat_symbol
+                self.board[row, col + i] = self.boats[boat_size]
         elif orientation == 'W':  # West
             for i in range(boat_size):
-                self.board[row, col - i] = self.boat_symbol
+                self.board[row, col - i] = self.boats[boat_size]
         elif orientation == 'S':  # South
             for i in range(boat_size):
-                self.board[row + i, col] = self.boat_symbol
+                self.board[row + i, col] = self.boats[boat_size]
         else:  # North
             for i in range(boat_size):
-                self.board[row - i, col] = self.boat_symbol
+                self.board[row - i, col] = self.boats[boat_size]
 
     def place_all_boats(self):
         try:
