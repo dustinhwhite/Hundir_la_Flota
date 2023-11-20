@@ -3,7 +3,7 @@ import numpy as np
 import tabulate as tabulate 
 import src.variables as variables
 import src.funciones as funciones
-
+from rich import print as rprint
 
 class Board:
     def __init__(self, player_id = "Computer", size=variables.SIZE, boat_symbol=variables.BOAT, boat_sizes=variables.BOAT_SIZES):
@@ -18,7 +18,8 @@ class Board:
             self.display_welcome_message()  
 
     def display_welcome_message(self):
-        print (f"Welcome {self.player_id}! Let's play Battleship! May the odds be ever in your favour")
+        print (f"Let's go {self.player_id}! Let's play Battleship! May the odds be ever in your favour")
+        print()
 
     def is_space_free (self, row, col, boat_size, orientation):
         if orientation == 'E':  # East
@@ -111,12 +112,15 @@ class Game:
         while True:
                 
             if players_turn:
+                print("------------------------ TUS BARCOS ------------------------")
                 player_board.display_board()
+                print("------------------------ TUS DISPAROS ------------------------")
                 print(tabulate.tabulate(player_tracking_board,headers=variables.row_column_names.keys(), showindex=variables.row_column_names.values(),tablefmt="rounded_grid",stralign='center'))
+                
                 print("----- ES TU TURNO -----")
                 coordinates = funciones.get_guess(player_tracking_board)
                 if coordinates == (99,99):
-                    print ("Has abandonado el juego, hasta pronto!")
+                    print ("Has abandonado el juego, hasta pronto!\n")
                     break
                 else:
                     acierto = funciones.player_shot(player_tracking_board, computer_board.board, coordinates)
@@ -125,7 +129,7 @@ class Game:
                         if not funciones.end_game(player_tracking_board):
                             print("¡Enhorabuena, has ganado!")
                             break
-                        print("Has acertado ! Tienes otro turno")
+                        print("Has acertado ! Tienes otro turno\n")
                         continue 
                     else:
                         print("----- TURNO DE LA MÁQUINA -----")
@@ -157,23 +161,26 @@ class Game:
         players_turn = True
         computers_turn = True
         computer_shots = set()
-        print("----- TABLERO CON LOS BARCOS DEL JUGADOR -----")
+        print("------- TABLERO CON LOS BARCOS DEL JUGADOR -------")
         demo_player_board.display_board()
-        print("----- TABLERO CON LOS DISPAROS DEL JUGADOR -----")
+        print("------- TABLERO CON LOS DISPAROS DEL JUGADOR -------")
         print(tabulate.tabulate(demo_player_tracking_board,headers=variables.row_column_names.keys(), showindex=variables.row_column_names.values(),tablefmt="rounded_grid",stralign='center'))
-        print("----- TABLERO CON LOS BARCOS DE LA MÁQUINA -----")
+        print("------- TABLERO CON LOS BARCOS DE LA MÁQUINA -------")
         demo_computer_board.display_board()
         
         while True:
             print()
-            test = int(input("¿Qué quieres probar?\n1. Disparo jugador\n2. Disparo máquina\n3. Fin del juego - Victoria jugador\n4. Fin del juego - Victoria máquinas\n Introduzca un número del 1-4 : "))
+            test = int(input("¿Qué quieres probar?\n1. Disparo jugador\n2. Disparo máquina\n3. Fin del juego - Victoria jugador\n4. Fin del juego - Victoria máquina\n Introduzca un número del 1-4 : "))
             if (type(test) != int) or (test>4) or (test<1):
                 print("Comando inválido. Introduzca un número del 1-4")
                 continue
 
             else:
                 if test == 1: # PROBANDO DISPARO DEL JUGADOR
+                    print()
+                    players_turn = True
                     while players_turn:
+                        print("------- TABLERO CON LOS DISPAROS DEL JUGADOR -------")
                         print(tabulate.tabulate(demo_player_tracking_board,headers=variables.row_column_names.keys(), showindex=variables.row_column_names.values(),tablefmt="rounded_grid",stralign='center'))
                         print("SIMULANDO DISPARO DEL JUGADOR")
                         coordinates = funciones.get_guess(demo_player_tracking_board)
@@ -190,11 +197,14 @@ class Game:
                                 print("Has acertado ! Tienes otro turno")
                                 continue 
                             else:
+                                rprint("------- TABLERO CON LOS DISPAROS DEL JUGADOR -------")
+                                print(tabulate.tabulate(demo_player_tracking_board,headers=variables.row_column_names.keys(), showindex=variables.row_column_names.values(),tablefmt="rounded_grid",stralign='center'))
                                 print("----- TURNO DE LA MÁQUINA -----")
                                 players_turn = False
                 
                 elif test == 2: # PROBANDO DISPARO DE LA MÁQUINA
                     print("SIMULANDO DISPARO DE LA MÁQUINA")
+                    computers_turn = True
                     while computers_turn:
                         acierto = funciones.computer_shot(demo_player_board.board, computer_shots)
                         if acierto:
@@ -208,8 +218,12 @@ class Game:
 
                 elif test == 3: # VICTORIA FORZOSA DEL JUGADOR
                     print("SIMULANDO VICTORIA DEL JUGADOR")
+                    players_turn = True
                     while players_turn:
+                        print("----------- TABLERO CON LOS BARCOS DE LA MÁQUINA -----------")
                         demo_computer_board.display_board()
+                        print()
+                        print("Toca uno de sus barcos para ver qué pasaría al tocar su última vida")
                         coordinates = funciones.get_guess(demo_player_tracking_board)
                         if coordinates == (99,99):
                             print ("Has abandonado el juego, hasta pronto!")
@@ -228,10 +242,12 @@ class Game:
                                 players_turn = False
                 else: # VICTORIA FORZOSA DE LA MÁQUINA
                     print("SIMULANDO DERROTA DEL JUGADOR")
+                    computers_turn = True
                     while computers_turn:
                         acierto = funciones.computer_shot(demo_player_board.board, computer_shots)
                         if acierto:
                             if funciones.end_game(demo_player_board.board):
+                                print("----------- TABLERO CON LOS BARCOS DEL JUGADOR -----------")
                                 demo_player_board.display_board()
                                 print("Ha ganado la máquina :( Hasta la próxima !")
                                 break

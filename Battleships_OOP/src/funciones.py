@@ -20,7 +20,7 @@ def get_guess(player_tracking_board):
     """
     while True:
         #print("Introduzca 'salir' si quiere salir y terminar el juego.")
-        column_input = input("Introduzca una columna (A-J):").upper().strip()
+        column_input = input("[ Si quiere abandonar el juego, introduzca 'W' ]\n Introduzca una columna (A-J):").upper().strip()
         if column_input == "W":
             return (99,99)
         else:
@@ -118,4 +118,22 @@ def end_game(board):
         return False
     else:
         return True
+    
+def bienvenida(player_id):
+    print()
+    print(f"¡Bienvenido/a {player_id} al juego de Hundir la Flota!")
+    print("\nReglas del juego:")
+    print("1. Eres tú contra la máquina.")
+    print("2. Cada uno, tiene un tablero de 10x10, que solo puede ver el.")
+    print("3. Tienes 10 barcos de diferentes dimensiones colocados aleatoriamente en tu tablero.")
+    print("4. El objetivo es hundir todos los barcos de tu oponente antes de que él hunda los tuyos.")
+    print("5. Elige las coordenadas para atacar en el tablero de tu oponente y trata de adivinar la ubicación de sus barcos. Si aciertas, tienes otro turno.")
+    print("6. Gana el jugador que hunda todos los barcos del oponente primero.")
+
+    print("\nSímbolos en el tablero:")
+    print("  💧: Agua")
+    print("  💀: Barco tocado")
+    print("  💥: Disparo fallido")
+
+    print("\n¡Buena suerte, capitán!")
 
